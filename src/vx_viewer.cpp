@@ -33,7 +33,7 @@ struct VoxelsDrawCallback : public osg::Drawable::DrawCallback
 	VoxelsDrawCallback(CVX_MeshRender *renderer) : _renderer(renderer) {}
 	virtual void drawImplementation(osg::RenderInfo &, const osg::Drawable *) const {
 		//_renderer->generateMesh();
- 		_renderer->updateMesh();
+		_renderer->updateMesh();
 		_renderer->glDraw();
 	}
 private:
@@ -46,47 +46,47 @@ private:
 // the bounding box for the above example, normally you'll find this the easy bit.
 class Voxels : public osg::Drawable
 {
-    public:
-        Voxels() : _voxelyze(0.05), _renderer(&_voxelyze) {
-					_voxelyze.enableFloor(true);
-					CVX_Material* pMaterial = _voxelyze.addMaterial(1000000, 1000); //A material with stiffness E=1MPa and density 1000Kg/m^3
-					pMaterial->setColor(0, 128, 0, 255);
-					CVX_Material* pMaterial2 = _voxelyze.addMaterial(1000000, 1000); //A material with stiffness E=1MPa and density 1000Kg/m^3
-					pMaterial2->setColor(256, 0, 0, 255);
+public:
+	Voxels() : _voxelyze(0.05), _renderer(&_voxelyze) {
+		_voxelyze.enableFloor(true);
+		CVX_Material* pMaterial = _voxelyze.addMaterial(1000000, 1000); //A material with stiffness E=1MPa and density 1000Kg/m^3
+		pMaterial->setColor(0, 128, 0, 255);
+		CVX_Material* pMaterial2 = _voxelyze.addMaterial(1000000, 1000); //A material with stiffness E=1MPa and density 1000Kg/m^3
+		pMaterial2->setColor(256, 0, 0, 255);
 
-					CVX_Voxel* Voxel1 = _voxelyze.setVoxel(pMaterial, 0, 0, 1); //Voxel at index x=0, y=0. z=0
-					CVX_Voxel* Voxel2 = _voxelyze.setVoxel(pMaterial2, 1, 0, 1);
-					CVX_Voxel* Voxel3 = _voxelyze.setVoxel(pMaterial, 2, 0, 1); //Beam extends in the +X direction
+		CVX_Voxel* Voxel1 = _voxelyze.setVoxel(pMaterial, 0, 0, 1); //Voxel at index x=0, y=0. z=0
+		CVX_Voxel* Voxel2 = _voxelyze.setVoxel(pMaterial2, 1, 0, 1);
+		CVX_Voxel* Voxel3 = _voxelyze.setVoxel(pMaterial, 2, 0, 1); //Beam extends in the +X direction
 
-					//Voxel1->external()->setFixedAll(); //Fixes all 6 degrees of freedom with an external condition on Voxel 1
-				//	Voxel3->external()->setForce(0, 0, 0); //pulls Voxel 3 downward with 1 Newton of force.
-					_voxelyze.setGravity(1.0);
+		//Voxel1->external()->setFixedAll(); //Fixes all 6 degrees of freedom with an external condition on Voxel 1
+		//	Voxel3->external()->setForce(0, 0, 0); //pulls Voxel 3 downward with 1 Newton of force.
+		_voxelyze.setGravity(1.0);
 
-					this->setUseDisplayList(false);
-					_renderer.generateMesh();
-				} //5mm voxels{}
+		this->setUseDisplayList(false);
+		_renderer.generateMesh();
+	} //5mm voxels{}
 
-        /** Copy constructor using CopyOp to manage deep vs shallow copy.*/
-        Voxels(const Voxels& Voxels,const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY):
-            osg::Drawable(Voxels,copyop), _voxelyze(0.05), _renderer(&_voxelyze) {}
+	/** Copy constructor using CopyOp to manage deep vs shallow copy.*/
+	Voxels(const Voxels& Voxels,const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY):
+	osg::Drawable(Voxels,copyop), _voxelyze(0.05), _renderer(&_voxelyze) {}
 
-        META_Object(myVoxelsApp, Voxels)
+	META_Object(myVoxelsApp, Voxels)
 
-        // we need to set up the bounding box of the data too, so that the scene graph knows where this
-        // objects is, for both positioning the camera at start up, and most importantly for culling.
-        virtual osg::BoundingBox computeBoundingBox() const
-        {
-            // value_type xmin, value_type ymin, value_type zmin, value_type xmax, value_type ymax, value_type zmax)
-            osg::BoundingBox bbox(-0.1, -0.1, -0.1, 0.1, 0.1, 0.1);
-            return bbox;
-        }
-				CVoxelyze* get_voxelyze() { return &_voxelyze; }
-				CVX_MeshRender* get_renderer() { return &_renderer; }
-    protected:
+	// we need to set up the bounding box of the data too, so that the scene graph knows where this
+	// objects is, for both positioning the camera at start up, and most importantly for culling.
+	virtual osg::BoundingBox computeBoundingBox() const
+	{
+		// value_type xmin, value_type ymin, value_type zmin, value_type xmax, value_type ymax, value_type zmax)
+		osg::BoundingBox bbox(-0.1, -0.1, -0.1, 0.1, 0.1, 0.1);
+		return bbox;
+	}
+	CVoxelyze* get_voxelyze() { return &_voxelyze; }
+	CVX_MeshRender* get_renderer() { return &_renderer; }
+protected:
 
-        virtual ~Voxels() {}
-				CVoxelyze _voxelyze;
-				CVX_MeshRender _renderer;
+	virtual ~Voxels() {}
+	CVoxelyze _voxelyze;
+	CVX_MeshRender _renderer;
 };
 
 
