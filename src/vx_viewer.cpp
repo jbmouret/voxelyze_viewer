@@ -11,19 +11,18 @@ namespace vx
 
 	struct VoxelsUpdateCallback : public osg::Drawable::UpdateCallback
 	{
-		VoxelsUpdateCallback(CVoxelyze* vx) : _vx(vx) {}
+		VoxelsUpdateCallback(Voxels* vx) : _vx(vx) {}
 		virtual void update(osg::NodeVisitor *vs, osg::Drawable* drawable) {
-			_vx->doTimeStep();
+			_vx->update();
 		}
 	private:
-		CVoxelyze* _vx;
+		Voxels* _vx;
 	};
 
 	struct VoxelsDrawCallback : public osg::Drawable::DrawCallback
 	{
 		VoxelsDrawCallback(CVX_MeshRender *renderer) : _renderer(renderer) {}
 		virtual void drawImplementation(osg::RenderInfo &, const osg::Drawable *) const {
-			//_renderer->generateMesh();
 			_renderer->updateMesh();
 			_renderer->glDraw();
 		}
@@ -118,7 +117,7 @@ namespace vx
 		geode_voxels->setNodeMask(CastsShadowTraversalMask);
 
 
-		ref_ptr<VoxelsUpdateCallback> cb = new VoxelsUpdateCallback(voxels->get_voxelyze());
+		ref_ptr<VoxelsUpdateCallback> cb = new VoxelsUpdateCallback(voxels);
 		voxels->setUpdateCallback(cb);
 		ref_ptr<VoxelsDrawCallback> cb2 = new VoxelsDrawCallback(voxels->get_renderer());
 		voxels->setDrawCallback(cb2);
@@ -142,7 +141,7 @@ namespace vx
 		// lights & shadows
 		Vec3 center(0.0f, 0.0f, 0.0f);
 		float radius = 500;
-		Vec3 light_position(center + Vec3(0.0f, -Voxels::voxel_size*50, Voxels::voxel_size * 50));
+		Vec3 light_position(center + Vec3(0.0f, -Voxels::voxel_size * 50, Voxels::voxel_size * 50));
 
 		osg::ref_ptr<osgShadow::ShadowedScene> shadowedScene = new osgShadow::ShadowedScene;
 		shadowedScene->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);
