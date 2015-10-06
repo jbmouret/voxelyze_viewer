@@ -11,9 +11,9 @@ def options(opt):
 
 def configure(conf):
     conf.load('compiler_cxx')
-    conf.env['LIB_OSG'] = [ 'osg', 'osgDB', 'osgUtil', 
+    conf.env['LIB_OSG'] = [ 'osg', 'osgDB', 'osgUtil',
                             'osgGA', #GLU GL
-                            'osgViewer', 'OpenThreads', 
+                            'osgViewer', 'OpenThreads',
                             'osgFX', 'osgShadow']
     # for OSX
     conf.env.FRAMEWORK_OSG='OpenGL'
@@ -24,9 +24,13 @@ def configure(conf):
     conf.env.LIBPATH_VOXELYZE = conf.options.voxelyze + '/lib'
     conf.env.LIB_VOXELYZE = 'voxelyze.0.9'
 
+
+
     print "Voxelyze include: " +  str(conf.env['INCLUDES_VOXELYZE'])
     print "Voxelyze libs: " +  conf.env['LIBPATH_VOXELYZE']
 
 def build(bld):
-      bld.program(source='src/vx_viewer.cpp', target='vx_viewers', uselib='OSG VOXELYZE') 
+      bld.program(source='src/vx_viewer.cpp', target='vx_viewer',
+                  uselib='OSG VOXELYZE',
+                  cxxflags = ['-std=c++11', '-fdiagnostics-color'])
 #         bld.stlib(source='a.c', target='mystlib') 3
