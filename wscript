@@ -6,27 +6,27 @@ import copy
 import os, sys
 
 def options(opt):
+        opt.add_option('--voxelyze', action='store', default=os.getcwd() + "/Voxelyze/", help='full path to voxelyze')
         opt.load('compiler_cxx')
 
 def configure(conf):
-        conf.load('compiler_cxx')
-
-def set_options(opt):
-    opt.tool_options('compiler_cxx')
-    
-def configure(conf):
-    # log configure options
-    fname = 'build/configure.options'
-    args = open(fname, 'a')
-    for i in sys.argv:
-        args.write(i + ' ')
-    args.write("\n")
-    args.close()
-
     conf.load('compiler_cxx')
-    conf.env['LIB_OSG'] = [ 'osg', 'osgDB', 'osgUtil', 'osgGA', #GLU GL
-                           'osgViewer', 'OpenThreads', 
+    conf.env['LIB_OSG'] = [ 'osg', 'osgDB', 'osgUtil', 
+                            'osgGA', #GLU GL
+                            'osgViewer', 'OpenThreads', 
                             'osgFX', 'osgShadow']
+    # for OSX
+    conf.env.FRAMEWORK_OSG='OpenGL'
+
+
+    ### VOXELYZE
+    conf.env.INCLUDES_VOXELYZE = conf.options.voxelyze + '/include'
+    conf.env.LIBPATH_VOXELYZE = conf.options.voxelyze + '/lib'
+    conf.env.LIB_VOXELYZE = 'voxelyze.0.9'
+
+    print "Voxelyze include: " +  str(conf.env['INCLUDES_VOXELYZE'])
+    print "Voxelyze libs: " +  conf.env['LIBPATH_VOXELYZE']
 
 def build(bld):
-      bld.program(source='src/vx_viewer.cpp', target='app', use='OSG') 
+      bld.program(source='src/vx_viewer.cpp', target='vx_viewers', uselib='OSG VOXELYZE') 
+#         bld.stlib(source='a.c', target='mystlib') 3
