@@ -141,7 +141,7 @@ namespace vx
 		// lights & shadows
 		Vec3 center(0.0f, 0.0f, 0.0f);
 		float radius = 500;
-		Vec3 light_position(center + Vec3(0.0f, -Voxels::voxel_size * 50, Voxels::voxel_size * 50));
+		Vec3 light_position(center + Vec3(0.0f, Voxels::voxel_size * 50, Voxels::voxel_size * 50));
 
 		osg::ref_ptr<osgShadow::ShadowedScene> shadowedScene = new osgShadow::ShadowedScene;
 		shadowedScene->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);

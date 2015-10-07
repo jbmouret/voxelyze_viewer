@@ -25,6 +25,10 @@ namespace vx {
       _viewer.setSceneData(_scene);
       _viewer.setCameraManipulator(new osgGA::TrackballManipulator());
       _viewer.realize();
+      _viewer.getCameraManipulator()->setHomePosition(osg::Vec3d(0.1, 0.1, 0.1),
+                                                       osg::Vec3d(0, 0, 0),
+                                                       osg::Vec3d(0, 0, 1));
+      _viewer.home();
     }
     void frame() {
       _viewer.frame();

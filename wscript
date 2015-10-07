@@ -24,8 +24,6 @@ def configure(conf):
     conf.env.LIBPATH_VOXELYZE = conf.options.voxelyze + '/lib'
     conf.env.LIB_VOXELYZE = 'voxelyze.0.9'
 
-
-
     print "Voxelyze include: " +  str(conf.env['INCLUDES_VOXELYZE'])
     print "Voxelyze libs: " +  conf.env['LIBPATH_VOXELYZE']
 
