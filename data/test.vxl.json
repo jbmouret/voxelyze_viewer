@@ -1,0 +1,40 @@
+{
+    "voxelSize": 0.004999999888241291,
+    "gravityAcceleration": 3.0,
+    "floorEnabled": true,
+    "materials": [
+        {
+            "youngsModulus": 10000000.0,
+            "density": 1000000.0,
+            "red": 0,
+            "green": 128,
+            "blue": 0,
+            "alpha": 255,
+            "poissonsRatio": 0.3499999940395355,
+            "staticFriction": 1000.0,
+            "kineticFriction": 0.5,
+            "collisionDamping": 0.5
+        },
+        {
+            "youngsModulus": 10000000.0,
+            "density": 1000000.0,
+            "red": 255,
+            "green": 0,
+            "blue": 0,
+            "alpha": 255,
+            "poissonsRatio": 0.3499999940395355,
+            "staticFriction": 1000.0,
+            "kineticFriction": 0.5,
+            "collisionDamping": 0.5
+        }
+    ],
+    "voxels": [
+        0,0,0,0,
+        1,0,0,0,
+        1,0,1,1,
+        2,0,1,1,
+        3,0,1,0,
+        4,0,1,0,
+        5,0,1,0
+    ]
+}

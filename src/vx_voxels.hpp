@@ -12,6 +12,17 @@ namespace vx {
 	{
 	public:
 		static constexpr float voxel_size = 0.005;
+		// load a json file
+		Voxels(const char* file) : _voxelyze(file), _renderer(&_voxelyze){
+			this->setUseDisplayList(false);
+			_renderer.generateMesh();
+			std::cout << "JSON loaded" << std::endl
+							  << "\tmaterials: " << _voxelyze.materialCount () << std::endl
+								<< "\tvoxels: "<< _voxelyze.voxelCount()
+						  	<< std::endl;
+		}
+
+		// a default constructor "just to test"
 		Voxels() : _voxelyze(voxel_size), _renderer(&_voxelyze), _t(0) {
 			_voxelyze.enableFloor(true);
 			CVX_Material* pMaterial = _voxelyze.addMaterial(1e7, 1e6); //A material with stiffness E=1MPa and density 1e6Kg/m^3
@@ -50,7 +61,7 @@ namespace vx {
 			CVX_Voxel* Voxel5 = _voxelyze.setVoxel(pMaterial, 3, 0, 1); //Beam extends in the +X direction
 
 			_voxelyze.setGravity(3);
-
+			_voxelyze.saveJSON("test.json");
 			this->setUseDisplayList(false);
 			_renderer.generateMesh();
 		}
@@ -68,8 +79,8 @@ namespace vx {
 			double s = cos(_t) / 10.0 + 1.0;
 			double s2 = sin(_t) / 10.0 + 1.0;
 
-			_m1->setExternalScaleFactor(Vec3D<double>(s, s, s));
-			_m2->setExternalScaleFactor(Vec3D<double>(s2, s2, s2));
+		//	_m1->setExternalScaleFactor(Vec3D<double>(s, s, s));
+		//	_m2->setExternalScaleFactor(Vec3D<double>(s2, s2, s2));
 
 			_t += 0.05;
 

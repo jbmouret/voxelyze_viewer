@@ -31,7 +31,7 @@ namespace vx
 	};
 
 
-	ref_ptr<Geode> Viewer :: create_sqr(float width, float length)
+	ref_ptr<Geode> Viewer :: _create_sqr(float width, float length)
 	{
 		ref_ptr<Geometry> sqr(new Geometry);
 		ref_ptr<Geode> geode_sqr(new Geode);
@@ -71,7 +71,7 @@ namespace vx
 		return geode_sqr;
 	}
 
-	ref_ptr<Texture2D> Viewer::load_texture(const std::string& fname)
+	ref_ptr<Texture2D> Viewer :: _load_texture(const std::string& fname)
 	{
 		ref_ptr<Texture2D> texture = new Texture2D();
 		ref_ptr<Image> image = osgDB::readImageFile(fname);
@@ -85,31 +85,30 @@ namespace vx
 
 
 	// a big textured square
-	ref_ptr<PositionAttitudeTransform> Viewer :: create_ground()
+	ref_ptr<Node> Viewer :: _create_ground()
 	{
 		static const float ground_x = Voxels::voxel_size * 30;
 		static const float ground_y = ground_x;
 		static const float ground_z = 0;
 
-		ref_ptr<Geode> geode_sqr = create_sqr(ground_x, ground_y);
+		ref_ptr<Geode> geode_sqr = _create_sqr(ground_x, ground_y);
 		geode_sqr->setNodeMask(ReceivesShadowTraversalMask);
 		ref_ptr<PositionAttitudeTransform>  pat(new PositionAttitudeTransform());
 		pat->setPosition(Vec3(-0.5 * ground_x, -0.5 * ground_y, -Voxels::voxel_size / 2.0));
 		pat->addChild(geode_sqr.get());
 		ref_ptr<StateSet> ss_checker(new StateSet());
-		ss_checker->setTextureAttributeAndModes(0, load_texture("data/checker.tga"));
+		ss_checker->setTextureAttributeAndModes(0, _load_texture("data/checker.tga"));
 		geode_sqr->setStateSet(ss_checker.get());
 
 		return pat;
 
 	}
 
-	ref_ptr<Node> Viewer :: init() {
+	ref_ptr<Node> Viewer :: _init(ref_ptr<Voxels> voxels) {
 		// we need the scene's state set to enable the light for the entire scene
 		ref_ptr<Group> scene = new Group();
 
 		ref_ptr<osg::Geode> geode_voxels = new osg::Geode();
-		ref_ptr<Voxels> voxels = new Voxels;
 		geode_voxels->addDrawable(voxels);
 		PositionAttitudeTransform *cubeTransform = new PositionAttitudeTransform();
 		cubeTransform->addChild(geode_voxels);
@@ -122,14 +121,14 @@ namespace vx
 		ref_ptr<VoxelsDrawCallback> cb2 = new VoxelsDrawCallback(voxels->get_renderer());
 		voxels->setDrawCallback(cb2);
 
-		ref_ptr<PositionAttitudeTransform> ground = create_ground();
+		ref_ptr<Node> ground = _create_ground();
 		scene->addChild(ground);
 
 		// create white material
 		ref_ptr<Material> material = new Material();
 		material->setDiffuse(Material::FRONT,  Vec4(1.0, 1.0, 1.0, 1.0));
 		material->setSpecular(Material::FRONT, Vec4(0.0, 0.0, 0.0, 1.0));
-		material->setAmbient(Material::FRONT,  Vec4(0.1, 0.1, 0.1, 1.0));
+		material->setAmbient(Material::FRONT,  Vec4(0.2, 0.2, 0.2, 1.0));
 		material->setEmission(Material::FRONT, Vec4(0.0, 0.0, 0.0, 1.0));
 		material->setShininess(Material::FRONT, 25.0);
 
@@ -160,10 +159,24 @@ namespace vx
 
 		return shadowedScene;
 	}
+
+	void Viewer :: _init_view() {
+		_viewer.setSceneData(_scene);
+		_viewer.setCameraManipulator(new osgGA::TrackballManipulator());
+		_viewer.realize();
+		_viewer.getCameraManipulator()->setHomePosition(osg::Vec3d(0.1, 0.1, 0.1),
+																										 osg::Vec3d(0, 0, 0),
+																										 osg::Vec3d(0, 0, 1));
+		_viewer.home();
+	}
+
 }
 
-int main() {
-	vx::Viewer viewer;
+int main(int argc, const char **argv) {
+	assert(argc == 2);
+	std::cout<<"loading:" << argv[1] << std::endl;
+	vx::Viewer viewer(argv[1]);
+
 	while (!viewer.done()) {
 		viewer.frame();
 	}

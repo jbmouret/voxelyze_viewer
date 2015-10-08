@@ -17,18 +17,20 @@
 #include <osgShadow/ShadowTexture>
 #include <osgShadow/SoftShadowMap>
 
+#include "vx_voxels.hpp"
+
 namespace vx {
 	class Viewer {
   public:
+    Viewer(const char* json){
+      _scene = _init(new Voxels(json));
+      std::cout << "scene created" << std::endl;
+      _init_view();
+      std::cout << "view initialized"<<std::endl;
+    }
     Viewer() {
-      _scene = init();
-      _viewer.setSceneData(_scene);
-      _viewer.setCameraManipulator(new osgGA::TrackballManipulator());
-      _viewer.realize();
-      _viewer.getCameraManipulator()->setHomePosition(osg::Vec3d(0.1, 0.1, 0.1),
-                                                       osg::Vec3d(0, 0, 0),
-                                                       osg::Vec3d(0, 0, 1));
-      _viewer.home();
+      _scene = _init(new Voxels());
+      _init_view();
     }
     void frame() {
       _viewer.frame();
@@ -37,10 +39,11 @@ namespace vx {
       return _viewer.done();
     }
 	protected:
-		osg::ref_ptr<osg::Geode> create_sqr(float width, float length);
-		osg::ref_ptr<osg::Texture2D> load_texture(const std::string& fname);
-    osg::ref_ptr<osg::PositionAttitudeTransform>  create_ground();
-		osg::ref_ptr<osg::Node> init();
+		osg::ref_ptr<osg::Geode> _create_sqr(float width, float length);
+		osg::ref_ptr<osg::Texture2D> _load_texture(const std::string& fname);
+    osg::ref_ptr<osg::Node> _create_ground();
+		osg::ref_ptr<osg::Node> _init(osg::ref_ptr<Voxels> voxels);
+    void _init_view();
     //
     osg::ref_ptr<osg::Node> _scene;
     osgViewer::Viewer _viewer;
