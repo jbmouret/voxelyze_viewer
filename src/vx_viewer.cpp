@@ -25,6 +25,7 @@ namespace vx
 		virtual void drawImplementation(osg::RenderInfo &, const osg::Drawable *) const {
 			_renderer->updateMesh();
 			_renderer->glDraw();
+			std::cout<<"draw callback"<<std::endl;
 		}
 	private:
 		CVX_MeshRender *_renderer;

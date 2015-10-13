@@ -5,7 +5,7 @@
     "materials": [
         {
             "youngsModulus": 10000000.0,
-            "density": 1000000.0,
+            "density": 10000000.0,
             "red": 0,
             "green": 128,
             "blue": 0,
@@ -17,7 +17,7 @@
         },
         {
             "youngsModulus": 10000000.0,
-            "density": 1000000.0,
+            "density": 10000000.0,
             "red": 255,
             "green": 0,
             "blue": 0,
@@ -36,5 +36,15 @@
         3,0,1,0,
         4,0,1,0,
         5,0,1,0
+    ],
+    "externals": [
+        {
+            "fixed": [false,false,false,false,false,false],
+            "voxelIndices": [ 0 ]
+        },
+        {
+            "force": [ 0.0, 0.0, 0.0 ],
+            "voxelIndices": [ 5 ]
+        }
     ]
 }

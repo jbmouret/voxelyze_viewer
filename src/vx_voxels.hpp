@@ -76,11 +76,14 @@ namespace vx {
 		}
 		void update(){
 			_voxelyze.doTimeStep();
+			std::cout<< _voxelyze.recommendedTimeStep () << std::endl;
 			double s = cos(_t) / 10.0 + 1.0;
 			double s2 = sin(_t) / 10.0 + 1.0;
-
+			std::cout<<"update"<<std::endl;
+			_m1 = _voxelyze.material(0);
+			_m2 = _voxelyze.material(1);
 		//	_m1->setExternalScaleFactor(Vec3D<double>(s, s, s));
-		//	_m2->setExternalScaleFactor(Vec3D<double>(s2, s2, s2));
+			//_m2->setExternalScaleFactor(Vec3D<double>(s2, s2, s2));
 
 			_t += 0.05;
 
