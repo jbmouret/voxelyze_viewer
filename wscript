@@ -28,7 +28,7 @@ def configure(conf):
     print "Voxelyze libs: " +  conf.env['LIBPATH_VOXELYZE']
 
 def build(bld):
-      bld.program(source='src/vx_viewer.cpp', target='vx_viewer',
+      bld.program(source=['src/vx_viewer.cpp', 'src/vx_voxels.cpp'], target='vx_viewer',
                   uselib='OSG VOXELYZE',
                   cxxflags = ['-std=c++11', '-fdiagnostics-color'])
 #         bld.stlib(source='a.c', target='mystlib') 3

@@ -4,28 +4,56 @@
     "floorEnabled": true,
     "materials": [
         {
-            "youngsModulus": 10000000.0,
+            "name":"passive_hard",
+            "youngsModulus": 1e7,
             "density": 10000000.0,
             "red": 0,
-            "green": 128,
-            "blue": 0,
+            "green": 0,
+            "blue": 255,
             "alpha": 255,
-            "poissonsRatio": 0.3499999940395355,
-            "staticFriction": 1000.0,
+            "poissonsRatio": 0.35,
+            "staticFriction": 1.0,
             "kineticFriction": 0.5,
-            "collisionDamping": 0.5
+            "collisionDamping": 1000000
         },
         {
-            "youngsModulus": 10000000.0,
+            "name":"active+",
+            "youngsModulus": 1e7,
             "density": 10000000.0,
             "red": 255,
             "green": 0,
             "blue": 0,
             "alpha": 255,
-            "poissonsRatio": 0.3499999940395355,
-            "staticFriction": 1000.0,
+            "poissonsRatio": 0.35,
+            "staticFriction": 1.0,
             "kineticFriction": 0.5,
-            "collisionDamping": 0.5
+            "collisionDamping": 10000
+        },
+        {
+            "name":"active-",
+            "youngsModulus": 1e7,
+            "density": 10000000.0,
+            "red": 0,
+            "green": 255,
+            "blue": 0,
+            "alpha": 255,
+            "poissonsRatio": 0.35,
+            "staticFriction": 1.0,
+            "kineticFriction": 0.5,
+            "collisionDamping": 1
+        },
+        {
+            "name":"passive_soft",
+            "youngsModulus": 1e7,
+            "density": 10000000.0,
+            "red": 0,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "poissonsRatio": 0.35,
+            "staticFriction": 1.0,
+            "kineticFriction": 0.5,
+            "collisionDamping": 1
         }
     ],
     "voxels": [
