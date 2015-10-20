@@ -31,9 +31,6 @@ namespace vx {
         virtual ~Voxels() {}
         CVoxelyze _voxelyze;
         CVX_MeshRender _renderer;
-        CVX_Material* _m1;
-        CVX_Material* _m2;
-
         double _t;
     };
 }
