@@ -1,5 +1,5 @@
 {
-    "voxelSize": 0.004999999888241291,
+    "voxelSize": 0.005,
     "gravityAcceleration": 3.0,
     "floorEnabled": true,
     "materials": [
@@ -38,10 +38,6 @@
         5,0,1,0
     ],
     "externals": [
-        {
-            "fixed": [false,false,false,false,false,false],
-            "voxelIndices": [ 0 ]
-        },
         {
             "force": [ 0.0, 0.0, 0.0 ],
             "voxelIndices": [ 5 ]

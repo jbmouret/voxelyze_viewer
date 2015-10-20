@@ -14,11 +14,16 @@ namespace vx {
 		static constexpr float voxel_size = 0.005;
 		// load a json file
 		Voxels(const char* file) : _voxelyze(file), _renderer(&_voxelyze){
+			_voxelyze.setGravity(3);
+			_voxelyze.enableFloor(true);
+
 			this->setUseDisplayList(false);
 			_renderer.generateMesh();
+
 			std::cout << "JSON loaded" << std::endl
 							  << "\tmaterials: " << _voxelyze.materialCount () << std::endl
-								<< "\tvoxels: "<< _voxelyze.voxelCount()
+								<< "\tvoxels: "<< _voxelyze.voxelCount() << std::endl
+								<< "\tgravity:"<< _voxelyze.gravity()
 						  	<< std::endl;
 		}
 
