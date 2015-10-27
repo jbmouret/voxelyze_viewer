@@ -1,0 +1,83 @@
+{
+    "voxelSize": 0.005,
+    "gravityAcceleration": 5.0,
+    "floorEnabled": true,
+    "materials": [
+        {
+            "youngsModulus": 10000000.0,
+            "density": 10000.0,
+            "name": "active+",
+            "red": 255,
+            "green": 0,
+            "blue": 0,
+            "alpha": 255,
+            "poissonsRatio": 0.3499999940395355,
+            "staticFriction": 1.0,
+            "kineticFriction": 0.5,
+            "externalScaleFactor": [
+                0.9800557830519291,
+                0.9800557830519291,
+                0.9800557830519291
+            ]
+        },
+        {
+            "youngsModulus": 10000.0,
+            "density": 10000.0,
+            "name": "passive_soft",
+            "red": 0,
+            "green": 255,
+            "blue": 255,
+            "alpha": 255,
+            "poissonsRatio": 0.3499999940395355,
+            "staticFriction": 1.0,
+            "kineticFriction": 0.5
+        },
+        {
+            "youngsModulus": 10000000.0,
+            "density": 10000.0,
+            "name": "active-",
+            "red": 0,
+            "green": 255,
+            "blue": 0,
+            "alpha": 255,
+            "poissonsRatio": 0.3499999940395355,
+            "staticFriction": 1.0,
+            "kineticFriction": 0.5,
+            "externalScaleFactor": [
+                1.0199442169480709,
+                1.0199442169480709,
+                1.0199442169480709
+            ]
+        },
+        {
+            "youngsModulus": 1000000.0,
+            "density": 10000.0,
+            "name": "passive_hard",
+            "red": 0,
+            "green": 0,
+            "blue": 255,
+            "alpha": 255,
+            "poissonsRatio": 0.3499999940395355,
+            "staticFriction": 1.0,
+            "kineticFriction": 0.5
+        }
+    ],
+    "voxels": [
+	0, 0, 0, 0,
+	0, 0, 1, 0,
+	0, 1, 1, 0,	
+	0, 0, 2, 0,
+	0, 1, 2, 0,
+	0, 2, 2, 0,
+	0, 0, 3, 2,
+	0, 1, 3, 2,
+	0, 2, 3, 2,
+	0, 3, 3, 2,
+	0, 4, 3, 2,
+	0, 5, 3, 3,
+	0, 5, 2, 3
+
+
+
+    ]
+}
