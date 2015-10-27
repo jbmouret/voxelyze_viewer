@@ -26,12 +26,14 @@ namespace vx {
         void update();
         CVoxelyze* get_voxelyze() { return &_voxelyze; }
         CVX_MeshRender* get_renderer() { return &_renderer; }
-
+        float t() const { return _t; }
+        float fit() const { return _fit; }
     protected:
         virtual ~Voxels() {}
         CVoxelyze _voxelyze;
         CVX_MeshRender _renderer;
         double _t;
+        float _fit;
     };
 }
 #endif

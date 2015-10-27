@@ -21,24 +21,28 @@
 namespace vx {
     class Viewer {
     public:
-        Viewer(const char* json)
+      Viewer(const char* json) : _voxels(new Voxels(json))
         {
-            _scene = _init(new Voxels(json));
+	    _scene = _init(_voxels);
             std::cout << "scene created" << std::endl;
             _init_view();
             std::cout << "view initialized" << std::endl;
         }
         void frame() { _viewer.frame(); }
         bool done() const { return _viewer.done(); }
+        float t() const { return _voxels->t(); }
+        float fit() const { return _voxels->fit(); }
     protected:
         osg::ref_ptr<osg::Geode> _create_sqr(float width, float length);
         osg::ref_ptr<osg::Texture2D> _load_texture(const std::string& fname);
         osg::ref_ptr<osg::Node> _create_ground();
         osg::ref_ptr<osg::Node> _init(osg::ref_ptr<Voxels> voxels);
+        osg::ref_ptr<Voxels> _voxels;
         void _init_view();
         //
         osg::ref_ptr<osg::Node> _scene;
         osgViewer::Viewer _viewer;
+        
     };
 }
 #endif

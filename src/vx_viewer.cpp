@@ -1,4 +1,4 @@
-
+#include <string>
 #include "vx_viewer.hpp"
 #include "vx_voxels.hpp"
 
@@ -26,7 +26,6 @@ namespace vx {
         {
             _renderer->updateMesh();
             _renderer->glDraw();
-            std::cout << "draw callback" << std::endl;
         }
 
     private:
@@ -163,6 +162,10 @@ namespace vx {
 
     void Viewer::_init_view()
     {
+        osgViewer::Viewer::Views views;
+        _viewer.getViews(views);
+        views[0]->setUpViewInWindow(100, 100, 900, 900);
+
         _viewer.setSceneData(_scene);
         _viewer.setCameraManipulator(new osgGA::TrackballManipulator());
         _viewer.realize();
@@ -174,11 +177,17 @@ namespace vx {
 
 int main(int argc, const char** argv)
 {
-    assert(argc == 2);
+    assert(argc >= 2);
+    float max_t = 1000;
+    if (argc == 3)
+      max_t = stof(std::string(argv[2]));
     std::cout << "loading:" << argv[1] << std::endl;
     vx::Viewer viewer(argv[1]);
 
-    while (!viewer.done()) {
+    int k = 0;
+    while (!viewer.done() && viewer.t() < max_t) {
         viewer.frame();
+	if (k++ % 100 == 0)
+	  std::cout<<viewer.t() << "=> "<<viewer.fit() << std::endl;
     }
 }
