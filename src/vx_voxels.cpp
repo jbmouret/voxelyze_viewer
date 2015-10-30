@@ -3,8 +3,8 @@
 namespace vx {
     Voxels::Voxels(const char* file) : _voxelyze(file), _renderer(&_voxelyze)
     {
-      _voxelyze.setGravity(2);
-      _voxelyze.enableFloor(true);
+      //      _voxelyze.setGravity(3);
+      //      _voxelyze.enableFloor(true);
 
         this->setUseDisplayList(false);
         _renderer.generateMesh();
@@ -17,10 +17,12 @@ namespace vx {
 
     void Voxels::update()
     {
+      //      while(_t < 0.5) {
+      for (size_t k = 0; k < 50; ++k) {
       _voxelyze.doTimeStep();//0.001);
         CVX_Material *m_plus = 0x0, *m_minus = 0x0;
-        double s = sin(100*_t) * 0.15 + 1.0;
-        double s2 = -sin(100*_t) * 0.15 + 1.0;
+        double s = sin(50*_t) * 0.15 + 1.0;
+        double s2 = -sin(50*_t) * 0.15 + 1.0;
         for (size_t i = 0; i < _voxelyze.materialCount(); i++) {
             if (strcmp(_voxelyze.material(i)->name(), "active+") == 0)
                 m_plus = _voxelyze.material(i);
@@ -43,6 +45,8 @@ namespace vx {
 	for (size_t i = 0; i < _voxelyze.voxelCount(); ++i)
 	  _fit += _voxelyze.voxel(i)->displacement().getX();
 	_fit /= _voxelyze.voxelCount();
-	//	std::cout<<_t<<" -> fit:"<<fit << " "<<s<<" "<< s2 << std::endl;
+	// std::cout<<_t<<" -> fit:"<<_fit <<std::endl;
+	 }
+	//exit(0);
     }
 }

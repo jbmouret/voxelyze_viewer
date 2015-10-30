@@ -86,7 +86,7 @@ namespace vx {
     // a big textured square
     ref_ptr<Node> Viewer::_create_ground()
     {
-        static const float ground_x = Voxels::voxel_size * 30;
+        static const float ground_x = Voxels::voxel_size * 100;
         static const float ground_y = ground_x;
         static const float ground_z = 0;
 
@@ -190,4 +190,5 @@ int main(int argc, const char** argv)
 	if (k++ % 100 == 0)
 	  std::cout<<viewer.t() << "=> "<<viewer.fit() << std::endl;
     }
+    std::cout<<"FINAL fit:" << viewer.t() << "=> "<<viewer.fit() << std::endl;
 }

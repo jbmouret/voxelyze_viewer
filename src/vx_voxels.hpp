@@ -19,7 +19,7 @@ namespace vx {
         // importantly for culling.
         virtual osg::BoundingBox computeBoundingBox() const
         {
-            double x = voxel_size * 10;
+            double x = voxel_size * 100;
             osg::BoundingBox bbox(-x, -x, -x, x, x, x);
             return bbox;
         }

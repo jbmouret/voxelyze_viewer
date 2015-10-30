@@ -1,6 +1,6 @@
 {
     "voxelSize": 0.005,
-    "gravityAcceleration": 5.0,
+    "gravityAcceleration": 2.0,
     "floorEnabled": true,
     "materials": [
         {
